@@ -43,20 +43,24 @@ public class UserDataModel {
 		
 		private final Collection<String> alternativeNicks = new ArrayList<>();
 
-		public void setNick(String nick) {
+		public Builder setNick(String nick) {
 			this.nick = nick;
+			return this;
 		}
 		
-		public void setRealName(String realName) {
+		public Builder setRealName(String realName) {
 			this.realName = realName;
+			return this;
 		}
 		
-		public void setIdent(String ident) {
+		public Builder setIdent(String ident) {
 			this.ident = ident;
+			return this;
 		}
 		
-		public void addAlternativeNick(String alternativeNick) {
+		public Builder addAlternativeNick(String alternativeNick) {
 			alternativeNicks.add(alternativeNick);
+			return this;
 		}
 		
 		public UserDataModel build() {

@@ -15,18 +15,18 @@ public class ChannelDataModel {
 		
 	}
 	
-    private final Cache<UUID, MessageDataModel> messageBuffer = 
+    private final Cache<UUID, ChannelMessageDataModel> messageBuffer = 
        CacheBuilder.newBuilder()
        .maximumSize(1000)
        //.expireAfterAccess(30, TimeUnit.MINUTES)
        .build();
     
-    private final PublishSubject<MessageDataModel> messageSubject = PublishSubject.create();
+    private final PublishSubject<ChannelMessageDataModel> messageSubject = PublishSubject.create();
 
-    public final Observable<MessageDataModel> onMessage() {
+    public final Observable<ChannelMessageDataModel> onMessage() {
     	return messageSubject;
     }
-    public void addMessage(MessageDataModel message) {
+    public void addMessage(ChannelMessageDataModel message) {
     	messageBuffer.put(UUID.randomUUID(), message);
     	messageSubject.onNext(message);
     }

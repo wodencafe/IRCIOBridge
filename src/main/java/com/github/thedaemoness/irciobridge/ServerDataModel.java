@@ -28,7 +28,7 @@ public class ServerDataModel implements Serializable {
 
 	private final String quitMessage;
 	
-    private final Cache<UUID, MessageDataModel> serverMessageBuffer = 
+    private final Cache<UUID, ChannelMessageDataModel> serverMessageBuffer = 
        CacheBuilder.newBuilder()
        .maximumSize(1000)
        //.expireAfterAccess(30, TimeUnit.MINUTES)
