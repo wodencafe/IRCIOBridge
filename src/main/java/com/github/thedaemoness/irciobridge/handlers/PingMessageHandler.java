@@ -7,7 +7,7 @@ import com.github.thedaemoness.irciobridge.Message;
 
 import io.reactivex.disposables.Disposable;
 
-public class PingMessageHandler implements MessageHandler, AutoCloseable {
+public class PingMessageHandler implements MessageHandler {
 	
 	private Writer writer;
 	
@@ -30,19 +30,6 @@ public class PingMessageHandler implements MessageHandler, AutoCloseable {
 		}
 	}
 
-	@Override
-	public void onError(Throwable e) {
-		e.printStackTrace();
-	}
-
-	@Override
-	public void onComplete() {
-		try {
-			close();
-		} catch (Exception e) {
-			onError(e);
-		}
-	}
 
 	@Override
 	public void close() throws Exception {
