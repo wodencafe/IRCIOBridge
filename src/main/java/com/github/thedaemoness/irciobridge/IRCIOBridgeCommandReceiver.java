@@ -32,6 +32,8 @@ public class IRCIOBridgeCommandReceiver extends AbstractIdleService implements O
 	@Override
 	protected void startUp() throws Exception {
 		streamReaderService.startAsync();
+		
+		streamReaderService.onMessage().subscribe(this);
 	}
 
 	@Override
@@ -48,7 +50,6 @@ public class IRCIOBridgeCommandReceiver extends AbstractIdleService implements O
 
 	@Override
 	public void onSubscribe(Disposable d) {
-		// TODO Auto-generated method stub
 		
 	}
 
