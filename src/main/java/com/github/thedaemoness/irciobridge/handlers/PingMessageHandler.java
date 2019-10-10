@@ -12,7 +12,7 @@ public class PingMessageHandler implements MessageHandler {
 	private Writer writer;
 	
 	public PingMessageHandler(Writer writer) {
-		
+		this.writer = writer;
 	}
 	private Disposable d;
 	@Override
