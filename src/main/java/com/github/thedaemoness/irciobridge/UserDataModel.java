@@ -5,48 +5,35 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class UserDataModel {
-	private final String nick;
-	
-	public String getNick() {
-		return nick;
-	}
 	public String getRealName() {
 		return realName;
 	}
 	public String getIdent() {
 		return ident;
 	}
-	public Collection<String> getAlternativeNicks() {
-		return Collections.unmodifiableCollection(alternativeNicks);
+	public Collection<String> getNicks() {
+		return Collections.unmodifiableCollection(nicks);
 	}
 	private final String realName;
 	
 	private final String ident;
 	
-	private final Collection<String> alternativeNicks = new ArrayList<>();
+	private final Collection<String> nicks = new ArrayList<>();
 	
-	public UserDataModel(String nick,
+	public UserDataModel(
 			String realName,
 			String ident,
-			Collection<String> alternativeNicks) {
-		this.nick = nick;
+			Collection<String> nicks) {
 		this.realName = realName;
 		this.ident = ident;
-		this.alternativeNicks.addAll(alternativeNicks);
+		this.nicks.addAll(nicks);
 	}
 	public static final class Builder {
-		private String nick = "IRCIOBridge_User";
-		
 		private String realName = "Beep Boop";
 		
 		private String ident = "foo";
 		
-		private final Collection<String> alternativeNicks = new ArrayList<>();
-
-		public Builder setNick(String nick) {
-			this.nick = nick;
-			return this;
-		}
+		private final Collection<String> nicks = new ArrayList<>();
 		
 		public Builder setRealName(String realName) {
 			this.realName = realName;
@@ -58,13 +45,16 @@ public class UserDataModel {
 			return this;
 		}
 		
-		public Builder addAlternativeNick(String alternativeNick) {
-			alternativeNicks.add(alternativeNick);
+		public Builder addNick(String nick) {
+			nicks.add(nick);
 			return this;
 		}
 		
 		public UserDataModel build() {
-			return new UserDataModel(nick, realName, ident, alternativeNicks);
+			if (nicks.isEmpty()) {
+				nicks.add("IRCIOBridge_User");
+			}
+			return new UserDataModel(realName, ident, nicks);
 		}
 	}
 }
