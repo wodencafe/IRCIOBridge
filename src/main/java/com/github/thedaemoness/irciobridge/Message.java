@@ -14,7 +14,7 @@ public class Message {
 			prefix = "";
 			command = cmdbuf;
 		}
-		String[] divided = line.nextLine().split(":",2);
+		final String[] divided = line.nextLine().split(":",2);
 		args = divided[0].trim();
 		if(divided.length == 2) text = divided[1];
 		else text = "";

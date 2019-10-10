@@ -26,6 +26,7 @@ public class ServerDataModel implements Serializable {
 	
 	private final Map<String, ChannelDataModel> channels = new HashMap<>();
 
+	private final String partMessage;
 	private final String quitMessage;
 	
     private final Cache<UUID, ChannelMessageDataModel> serverMessageBuffer = 
@@ -52,6 +53,9 @@ public class ServerDataModel implements Serializable {
 	public Map<String, ChannelDataModel> getChannels() {
 		return channels;
 	}
+	public String getPartMessage() {
+		return partMessage;
+	}
 	public String getQuitMessage() {
 		return quitMessage;
 	}
@@ -66,6 +70,7 @@ public class ServerDataModel implements Serializable {
 		int port,
 		boolean useSsl,
 		Collection<ChannelDataModel> channels,
+		String partMessage,
 		String quitMessage,
 		Charset encoding) {
 		this.user = user;
@@ -77,6 +82,7 @@ public class ServerDataModel implements Serializable {
 			Objects.requireNonNull(channel.getChannelName(), "Channel name cannot be null");
 			this.channels.put(channel.getChannelName(), channel);
 		}
+		this.partMessage = partMessage;
 		this.quitMessage = quitMessage;
 		this.encoding = encoding;
 	}
@@ -87,8 +93,14 @@ public class ServerDataModel implements Serializable {
 		private int port = 6667;
 		private boolean useSsl = false;
 		private Collection<ChannelDataModel> channels = new HashSet<>();
+		private String partMessage = "IRCIOBridge Left!";
 		private String quitMessage = "IRCIOBridge Terminated!";
 		private Charset encoding = StandardCharsets.UTF_8;
+		
+		private Builder(int port, boolean useSsl) {
+			this.port = port;
+			this.useSsl = useSsl;
+		}
 		
 		public Builder setUser(UserDataModel user) {
 			this.user = user;
@@ -102,16 +114,17 @@ public class ServerDataModel implements Serializable {
 			this.serverPassword = serverPassword;
 			return this;
 		}
-		public Builder setPort(int port) {
-			this.port = port; 
-			return this;
-		}
-		public Builder useSsl() {
-			useSsl = true;
+		public Builder setPort(int port, boolean usesSsl) {
+			this.port = port;
+			useSsl = usesSsl;
 			return this;
 		}
 		public Builder addChannel(ChannelDataModel channel) {
 			channels.add(channel);
+			return this;
+		}
+		public Builder setPartMessage(String partMessage) {
+			this.partMessage = quitMessage;
 			return this;
 		}
 		public Builder setQuitMessage(String quitMessage) {
@@ -124,8 +137,14 @@ public class ServerDataModel implements Serializable {
 		}
 		public ServerDataModel build() {
 			Objects.requireNonNull(user, "User cannot be null.");
-			return new ServerDataModel(user, address, serverPassword, port, useSsl, channels, quitMessage, encoding);
+			return new ServerDataModel(user, address, serverPassword, port, useSsl, channels, partMessage, quitMessage, encoding);
 			
+		}
+		public static Builder builder() {
+			return new Builder(6667, false);
+		}
+		public static Builder builderSsl() {
+			return new Builder(6697, true);
 		}
 	}
 

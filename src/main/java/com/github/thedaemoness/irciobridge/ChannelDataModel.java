@@ -12,7 +12,6 @@ public class ChannelDataModel {
 	
 	public ChannelDataModel(String channelName) {
 		this.channelName = channelName;
-		
 	}
 	
     private final Cache<UUID, ChannelMessageDataModel> messageBuffer = 
