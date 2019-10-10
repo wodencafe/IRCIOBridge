@@ -8,6 +8,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
+
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 
 public class ServerDataModel implements Serializable {
 	private final UserDataModel user;
@@ -23,6 +27,12 @@ public class ServerDataModel implements Serializable {
 	private final Map<String, ChannelDataModel> channels = new HashMap<>();
 
 	private final String quitMessage;
+	
+    private final Cache<UUID, MessageDataModel> serverMessageBuffer = 
+       CacheBuilder.newBuilder()
+       .maximumSize(1000)
+       //.expireAfterAccess(30, TimeUnit.MINUTES)
+       .build();
 	
 	public UserDataModel getUser() {
 		return user;
