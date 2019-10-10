@@ -9,6 +9,12 @@ repositories {
     maven { url 'https://jitpack.io' }
 }
 dependencies {
+	// https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxjava
+	compile group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.2.13'
+	
+	// https://mvnrepository.com/artifact/com.google.guava/guava
+	compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'
+	
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
     testCompile 'org.junit.jupiter:junit-jupiter-params:5.1.0'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
